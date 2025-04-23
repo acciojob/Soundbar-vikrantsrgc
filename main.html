@@ -1,16 +1,73 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Soundbar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding-top: 100px;
+      background-color: #f0f0f0;
+    }
+
+    #buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn, .stop {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .stop {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <section id="buttons">
+    <button class="btn" data-sound="sound1.mp3">Sound 1</button>
+    <button class="btn" data-sound="sound2.mp3">Sound 2</button>
+    <button class="btn" data-sound="sound3.mp3">Sound 3</button>
+    <button class="stop">Stop</button>
+  </section>
 
+  <script>
+    const buttons = document.querySelectorAll('.btn');
+    const stopButton = document.querySelector('.stop');
+    let currentAudio = null;
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const soundFile = button.getAttribute('data-sound');
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+        currentAudio = new Audio(`sounds/${soundFile}`);
+        currentAudio.play();
+      });
+    });
+
+    stopButton.addEventListener('click', () => {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+      }
+    });
+  </script>
 </body>
-
 </html>
